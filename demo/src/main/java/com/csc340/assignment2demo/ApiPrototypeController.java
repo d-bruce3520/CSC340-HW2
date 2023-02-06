@@ -16,13 +16,9 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author unclu
  */
+@RestController
 public class ApiPrototypeController {
-    
-     @GetMapping("/hello")
-    public String hello() {
-        return "Hello, World";
-    }
-    
+        
     @GetMapping("/cat")
     public Object GetCatFact(){
         try{
@@ -33,9 +29,7 @@ public class ApiPrototypeController {
             String jSonQuote = restTemplate.getForObject(url, String.class);
             JsonNode root = mapper.readTree(jSonQuote);
             
-            // Print relevant info to console
-            String catFact = root.get("data").asText();
-            System.out.println("Fact : " + catFact);
+            System.out.println("Cat fact: " + root.get("data").get(0));
             
             return root;
         }
